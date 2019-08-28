@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>add a recipe</title>
+
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css.css' %}">
+    </head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <h4 class="white mr-auto">Welcome, {{user_info.first_name}} {{user_info.last_name}}</h4>
+        <h4 class="white mr-auto">
+                <a href="/myaccount/{{user_info.id}}" class="white mr-auto">Edit My Account</a>
+        </h4>
+        <a href="/logout" class="move badge badge-primary">Log out</a>
+    </nav>
+    <br>
+    
+    <div class="move col-3 form-group">
+    <h1>Add a recipe</h1>
+    {% if messages %}                            <!-- check if there are any messages -->
+    {% for message in messages %}            <!-- loop through the messages -->
+        <p>{{message | safe}}</p>                   <!-- display each message in a paragraph tag -->
+    {% endfor %}
+    {% endif %}
+    <form action ="/resqpedia/addrecipe" method="POST">
+        {% csrf_token %}
+        <input type="file" name="pic" accept="image/*">
+        <input type="submit">
+    </form>
+    <div class="form-group">
+        <label for="prep_time">Prep Time: </label>
+        <input type="number" class="form-control" name="prep_time">
+    </div>
+    <div class="form-group">
+        <label for="cook_time">Cook Time: </label>
+        <input type="number" class="form-control" name="cook_time">
+        </div>
+        <div class="form-group">
+            <label for="number_of_servings">Numer of Servings: </label>
+            <input type="number" class="form-control" name="number_of_servings">
+        </div>
+        <div class="form-group">
+            <label for="title">Title </label>
+            <textarea class="form-control" name="title" placeholder="Required" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="description">Description </label>
+            <textarea class="form-control" name="description" placeholder="Must be more than 50 characters" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="ingredients">Ingredients </label>
+            <textarea class="form-control" name="ingredients" placeholder="Ingredients required" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="directions">Directions </label>
+            <textarea class="form-control" name="directions" placeholder="Ingredients required" rows="3"></textarea>
+        </div>
+        <input type="hidden" name="uploaded_by" value="{{user_info.id}}">
+        <input type="hidden" name="users_who_like" value="{{user_info.id}}">
+        <button type="submit" class="moveitright col-4 btn btn-success">Submit</button>
+    </form>
+</body>
+</html>
