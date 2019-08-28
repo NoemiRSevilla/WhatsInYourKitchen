@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Recipe Homepage</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css.css' %}">
+</head>
+<body>
+    <div id="wrapper">
+        <header>
+            <h2 class="welcome">
+                Welcome, {{first_name}} {{last_name}}
+            </h2>
+            <a href="/myaccount/{{user_info.id}}" class="edit_my_account">Edit My Account</a>
+            <a href="/logout" class="logout">Logout</a>
+        </header>
+        <main>
+            <div>
+                <h3 class="recipe_header">"Dish Name"</h3>
+            </div>
+            <div class="recipe_info">
+                <h4 class="recipe_description">This is a brief description of the dish.</h4>
+                <p class="ptime">Prep Time: ___ minutes</p>
+                <p class="ctime">Cook Time: ___ mintues</p>
+                <p class="num_of_serv">Number of Servings: ___ people</p>
+                <p class="ingredients">Ingredients Needed:
+                    <ul>
+                        <li>"ingredient"</li>
+                        <li>"ingredient"</li>
+                        <li>"ingredient"</li>
+                    </ul>
+                </p>
+                <p class="directions">Directions: 'text of the recipe directions'</p>
+                <form action="#" method="POST" class="like_form">
+                    {% csrf_token %}
+                    <p>'5' people like this <input type="submit" value="Like!"></p>
+                </form>
+                <div class="post_message">
+                    <form action="post_message" method="POST" class="mform" >
+                        {% csrf_token %}
+                        <h5>Post a message</h5>
+                        <textarea name="message" id="" cols="30" rows="10"></textarea>
+                        <input type="submit" value="Post a message">
+                    </form>
+                    <div class="message_post">
+                        <h5 class="postmessage">Tested Tester Aug,27 2019 @ 12:15pm</h5>
+                        <p class="post">message contents will show here</p>
+                    </div>
+                    
+                    <div class="comment_post">
+                        <h5 class="postcomment">Test Tester Aug,27 2019 @ 12:45pm</h6>
+                        <p class="cpost">post comments will show here</p>
+                    </div>
+                    <div class="post_comment">
+                        <form action="post_comment/{{post.id}}/comment" method='POST' class="form">
+                            {% csrf_token %}
+                            <h5 class="pcomment">Post a comment</h5>
+                            <textarea name="comment" id="" cols="30" rows="10"></textarea>
+                            <input type="hidden" name="message_id" value="{{post.id}}">
+                            <input type="submit" value="Post a comment">
+                        </form>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </main>
+    </div>
+</body>
+</html>

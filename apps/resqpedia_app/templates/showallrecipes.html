@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>All Recipes</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css.css' %}">
+</head>
+<body>
+    <div id="wrapper">
+        <header>
+            <h2 class="add_recipe">
+                Choose your Recipes
+            </h2>
+            <a href="/myaccount/{{user_info.id}}" class="edit_my_account">Edit My Account</a>
+            <a href="/logout" class="logout">Logout</a>
+        </header>
+        <main>
+            <div class="options">
+                <h3 class="options_title">Cuisines:</h3>
+                <div class="opts">
+                    <a class="options_link" href="#">American</a>
+                    <a class="options_link" href="#">Latin</a>
+                    <a class="options_link" href="#">Italian</a>
+                    <a class="options_link" href="#">Asian</a>
+                    <a class="options_link"href="#">Greek</a>
+                </div>
+            </div>
+            <div id="pop_choice">
+                <h4 class="pop_choice">Popular Choices</h4>
+                <!-- for loop to show recipes -->
+                <div>
+                    <ul>
+                        <li class="pop_choice"><a class="rec_name" href="#">Name of Recipe Choice </a> '5' people like this</li>
+                        <li class="pop_choice"><a class="rec_name" href="#">Name of Recipe Choice </a> '12' people like this</li>
+                        <li class="pop_choice"><a class="rec_name" href="#">Name of Recipe Choice </a> '6' people like this</li>
+                        <li class="pop_choice"><a class="rec_name" href="#">Name of Recipe Choice </a> '55' people like this</li>
+                        <li class="pop_choice"><a class="rec_name" href="#">Name of Recipe Choice </a> '240' people like this</li>
+                    </ul>
+                </div>
+                <!-- end for loop -->
+            </div>
+        </main>
+    </div>
+</body>
+</html>
