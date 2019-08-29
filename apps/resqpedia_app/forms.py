@@ -14,22 +14,15 @@ class RegisterUserForm(forms.Form):
     birthdate = forms.DateField(initial=datetime.date.today)
     password = forms.CharField(max_length=150, widget=forms.PasswordInput)
     confirm_password = forms.CharField(max_length=150,widget=forms.PasswordInput)
-    
-    class Meta:
-        model = User
 
-    def clean(self):
-        cleaned_data = self.cleaned_data
-        password = cleaned_data.get("password")
-        passwordrepeat = cleaned_data.get("confirm_password")
-        if password != confirm_password:
-            raise forms.ValidationError("Passwords must match.")
-        return cleaned_data
+    def clean_password(self):
+        if 'password' in self.cleaned_data:
+            password = self.cleaned_data['password']
+            confirm_password = self.cleaned_data['confirm_password']
+            if password == confirm_password:
+                return confirm_password
+        raise forms.ValidationError('Passwords do not match.')
 
-# class RegisterUserModel(forms.ModelForm):
-#     class Meta:
-#         model = User
-#         fields = '__all__'
 
 class LoginUserForm(forms.Form):
     email = forms.EmailField()
@@ -42,9 +35,6 @@ class EditUserForm(forms.Form):
     email = forms.EmailField()
     password = forms.CharField(max_length=150, widget=forms.PasswordInput)
     confirm_password = forms.CharField(max_length=150,widget=forms.PasswordInput)
-
-    class Meta:
-        model = User
     
     def clean(self):
         cleaned_data = self.cleaned_data
@@ -53,10 +43,7 @@ class EditUserForm(forms.Form):
         if password != passwordrepeat:
             raise forms.ValidationError("Passwords must match.")
         return cleaned_data
-# class EditUser(forms.ModelForm):
-#     class Meta:
-#         model = Recipe
-#         fields = '__all__'
+
 
 class AddRecipeForm(forms.Form):
     # recipe_picture = models.ImageField(upload_to='images/')
@@ -69,11 +56,6 @@ class AddRecipeForm(forms.Form):
     directions = forms.CharField(widget = forms.Textarea)
     categories = forms.CharField(widget = forms.Textarea)
 
-# class AddRecipeModel(forms.ModelForm):
-#     class Meta:
-#         model = Recipe
-#         fields = '__all__'
-
 class EditRecipeForm(forms.Form):
     # recipe_picture = models.ImageField(upload_to='images/')
     prep_time = forms.IntegerField()
@@ -85,31 +67,15 @@ class EditRecipeForm(forms.Form):
     directions = forms.CharField(widget = forms.Textarea)
     categories = forms.CharField(widget = forms.Textarea)
 
-# class EditRecipeModel(forms.ModelForm):
-#     class Meta:
-#         model = Recipe
-#         fields = '__all__'
-
 
 class AddMessageForm(forms.Form):
     # message_picture = models.ImageField(upload_to='images/')
     message = forms.CharField(widget = forms.Textarea)
 
-# class AddMessageModel(forms.ModelForm):
-#     class Meta:
-#         model = Message
-#         fields = '__all__'
-
 
 class EditMessageForm(forms.Form):
     # message_picture = models.ImageField(upload_to='images/')
     message = forms.CharField(widget = forms.Textarea)
-
-# class EditMessageModel(forms.ModelForm):
-#     class Meta:
-#         model = Message
-#         fields = '__all__'
-
 
 class AddCommentForm(forms.Form):
     # comment_picture = models.ImageField(upload_to='images/')

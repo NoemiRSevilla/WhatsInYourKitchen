@@ -26,13 +26,15 @@ def register(request):
         # True or False, based on the validations that were set!
         print(bound_form.is_valid())
         print(bound_form.errors)
-        hash = bcrypt.hashpw(
-            request.POST['password'].encode(), bcrypt.gensalt())
-        User.objects.create(first_name=request.POST['first_name'], last_name=request.POST['last_name'],
-                            email=request.POST['email'], birthdate=datetime.strptime(request.POST['birthdate'], '%Y-%m-%d'), password=hash)
-        request.session['username'] = request.POST['email']
-        return redirect("/resqpedia")
-
+        if bound_form.is_valid():
+            hash = bcrypt.hashpw(
+                request.POST['password'].encode(), bcrypt.gensalt())
+            User.objects.create(first_name=request.POST['first_name'], last_name=request.POST['last_name'],
+                                email=request.POST['email'], birthdate=datetime.strptime(request.POST['birthdate'], '%Y-%m-%d'), password=hash)
+            request.session['username'] = request.POST['email']
+            return redirect("/resqpedia")
+        else:
+            return redirect("/resqpedia")
 
 def checklogin(request):
     errors = {}
