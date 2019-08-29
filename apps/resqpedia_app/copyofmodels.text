@@ -74,12 +74,11 @@ def AlreadyReadyRegistered(value):
     except:
         pass
 
-def ConfirmPassword(value, postData):
+def ConfirmPassword(value):
     if postData['confirmpassword'] != postData['password']:
         raise ValidationError(
             '{} must match'.format(value)
         )
-
 def UserExists(value):
     try:
         user = User.objects.get(email=postData['email'])
@@ -102,6 +101,123 @@ def NoNegatives(value):
             '{} no negatives'.format(value)
         )
 
+# def basic_validator(self, postData):
+#     EMAIL_REGEX = re.compile(
+#         r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
+#     NAME_REGEX = re.compile(r'^[a-zA-Z]+$')
+#     bcrypt.hashpw('test'.encode(), bcrypt.gensalt())
+#         if not NAME_REGEX.match(postData['first_name']):
+#             raise ValidationError(
+#                 '{} must contain only letters'.format(value)
+#         )
+
+
+
+#         if not EMAIL_REGEX.match(postData['email']):
+#             raise ValidationError(
+#                 '{} must contain valid email'.format(value)
+#             )
+#     if len(postData['birthdate']) < 1:
+#         raise ValidationError(
+#             '{} required'.format(value)
+#         )
+#     else:
+#         birthdate = datetime.strptime(postData['birthdate'], "%Y-%m-%d")
+#         present = datetime.now()
+#         if ((present - birthdate).days/365 < 13):
+#             raise ValidationError(
+#                 '{} must be 13 years of age to register'.format(value)
+#             )
+#     try:
+#         User.objects.get(email=postData['email'])
+#         raise ValidationError(
+#             '{} already registered'.format(value)
+#         )
+#     except:
+#         pass
+#     if len(postData['password']) < 1:
+#         raise ValidationError(
+#             '{} required'.format(value)
+#         )
+#     else:
+#         if len(postData['password']) < 8:
+#             raise ValidationError(
+#                 '{} must be longer than: 8'.format(value)
+#             )
+#     if postData['confirmpassword'] != postData['password']:
+#         raise ValidationError(
+#             '{} must match'.format(value)
+#         )
+#     return errors
+# def login_validator(self, postData):
+#     errors = {}
+#     try:
+#         user = User.objects.get(email=postData['email'])
+#     except:
+#         raise ValidationError(
+#             '{} could not be logged in'.format(value)
+#         )
+#     if bcrypt.checkpw(postData['password'].encode(), user.password.encode()):
+#         return errors
+#     else:
+#         raise ValidationError(
+#             '{} could not be logged in'.format(value)
+#         )
+#         return errors
+
+# def edit_user_validator(self, postData, request):
+#     EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
+#     NAME_REGEX = re.compile(r'^[a-zA-Z]+$')
+#     errors = {}
+#     if len(postData['first_name']) < 1:
+#         raise ValidationError(
+#             '{} must be longer than: 1'.format(value)
+#         )
+#     else:
+#         if not NAME_REGEX.match(postData['first_name']):
+#             raise ValidationError(
+#                 '{} must contain only letters'.format(value)
+#             )
+#     if len(postData['last_name']) < 1:
+#         raise ValidationError(
+#             '{} required'.format(value)
+#         )
+#     else:
+#         if not NAME_REGEX.match(postData['last_name']):
+#             raise ValidationError(
+#                 '{} must contain only letters'.format(value)
+#             )
+#     if len(postData['email']) < 1:
+#         raise ValidationError(
+#             '{} required'.format(value)
+#         )
+#     else:
+#         if not EMAIL_REGEX.match(postData['email']):
+#             raise ValidationError(
+#                 '{} must contain valid email'.format(value)
+#             )
+#     if request.session['username'] == postData['email']:
+#         pass
+#     else:
+#         try:
+#             User.objects.get(email=postData['email'])
+#             raise ValidationError(
+#                 '{} already registered'.format(value)
+#             )
+#         except:
+#             pass
+#     return errors
+
+# class CommentManager(models.Manager):
+#     def message_validation(self, postData):
+#         errors = {}
+#         if len(postData['comment']) < 1:
+#             errors["comment"] = "<div class='ohno'>Comment required</div>"
+#             return errors
+#         if len(request.FILES)!= 0:
+#             data = request.FILES
+
+    
 class User(models.Model):
     first_name = models.CharField(max_length=100, validators = [LengthGreaterThanOne, NameMatchforRegex, LengthGreaterThanTwo])
     last_name = models.CharField(max_length=100, validators = [LengthGreaterThanOne, NameMatchforRegex, LengthGreaterThanTwo])
@@ -154,89 +270,6 @@ class Recipe(models.Model):
     # objects = RecipeManager()
 
 
-# def basic_validator(self, postData):
-#     EMAIL_REGEX = re.compile(
-#         r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
-#     NAME_REGEX = re.compile(r'^[a-zA-Z]+$')
-#     bcrypt.hashpw('test'.encode(), bcrypt.gensalt())
-#         if not NAME_REGEX.match(postData['first_name']):
-#             raise ValidationError(
-#                 '{} must contain only letters'.format(value)
-#         )
-
-
-#     try:
-#         User.objects.get(email=postData['email'])
-#         raise ValidationError(
-#             '{} already registered'.format(value)
-#         )
-#     except:
-#         pass
-#     else:
-
-#     if postData['confirmpassword'] != postData['password']:
-#         raise ValidationError(
-#             '{} must match'.format(value)
-#         )
-#     return errors
-# def login_validator(self, postData):
-#     errors = {}
-#     try:
-#         user = User.objects.get(email=postData['email'])
-#     except:
-#         raise ValidationError(
-#             '{} could not be logged in'.format(value)
-#         )
-#     if bcrypt.checkpw(postData['password'].encode(), user.password.encode()):
-#         return errors
-#     else:
-#         raise ValidationError(
-#             '{} could not be logged in'.format(value)
-#         )
-#         return errors
-
-# def edit_user_validator(self, postData, request):
-
-#     if len(postData['last_name']) < 1:
-#         raise ValidationError(
-#             '{} required'.format(value)
-#         )
-#     else:
-#         if not NAME_REGEX.match(postData['last_name']):
-#             raise ValidationError(
-#                 '{} must contain only letters'.format(value)
-#             )
-#     if len(postData['email']) < 1:
-#         raise ValidationError(
-#             '{} required'.format(value)
-#         )
-#     else:
-#         if not EMAIL_REGEX.match(postData['email']):
-#             raise ValidationError(
-#                 '{} must contain valid email'.format(value)
-#             )
-#     if request.session['username'] == postData['email']:
-#         pass
-#     else:
-#         try:
-#             User.objects.get(email=postData['email'])
-#             raise ValidationError(
-#                 '{} already registered'.format(value)
-#             )
-#         except:
-#             pass
-#     return errors
-
-# class CommentManager(models.Manager):
-#     def message_validation(self, postData):
-#         errors = {}
-#         if len(postData['comment']) < 1:
-#             errors["comment"] = "<div class='ohno'>Comment required</div>"
-#             return errors
-#         if len(request.FILES)!= 0:
-#             data = request.FILES
-
-    
 # class RecipeManager(models.Manager):
 #     def add_recipe_validate (self, postData):
 #         RECIPE_REGEX = re.compile(r'^[a-zA-Z0-9.?!-]+$')

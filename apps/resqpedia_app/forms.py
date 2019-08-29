@@ -6,7 +6,7 @@ import datetime
 # def get_image_path(instance, filename):
 #     return os.path.join('recipe_picture', str(instance.id), filename)
 
-class RegisterUser(forms.Form):
+class RegisterUserForm(forms.Form):
     # user_picture = forms.ImageField(upload_to='images/')
     first_name = forms.CharField(max_length=50)
     last_name = forms.CharField(max_length=50)
@@ -31,11 +31,11 @@ class RegisterUser(forms.Form):
 #         model = User
 #         fields = '__all__'
 
-class LoginUser(forms.Form):
+class LoginUserForm(forms.Form):
     email = forms.EmailField()
     password = forms.CharField(max_length=150, widget=forms.PasswordInput)
 
-class EditUser(forms.Form):
+class EditUserForm(forms.Form):
     # user_picture = forms.ImageField(upload_to='images/')
     first_name = forms.CharField(max_length=50)
     last_name = forms.CharField(max_length=50)
@@ -58,7 +58,7 @@ class EditUser(forms.Form):
 #         model = Recipe
 #         fields = '__all__'
 
-class AddRecipe(forms.Form):
+class AddRecipeForm(forms.Form):
     # recipe_picture = models.ImageField(upload_to='images/')
     prep_time = forms.IntegerField()
     cook_time = forms.IntegerField()
@@ -74,7 +74,7 @@ class AddRecipe(forms.Form):
 #         model = Recipe
 #         fields = '__all__'
 
-class EditRecipe(forms.Form):
+class EditRecipeForm(forms.Form):
     # recipe_picture = models.ImageField(upload_to='images/')
     prep_time = forms.IntegerField()
     cook_time = forms.IntegerField()
@@ -91,7 +91,7 @@ class EditRecipe(forms.Form):
 #         fields = '__all__'
 
 
-class AddMessage(forms.Form):
+class AddMessageForm(forms.Form):
     # message_picture = models.ImageField(upload_to='images/')
     message = forms.CharField(widget = forms.Textarea)
 
@@ -101,7 +101,7 @@ class AddMessage(forms.Form):
 #         fields = '__all__'
 
 
-class EditMessage(forms.Form):
+class EditMessageForm(forms.Form):
     # message_picture = models.ImageField(upload_to='images/')
     message = forms.CharField(widget = forms.Textarea)
 
@@ -111,10 +111,10 @@ class EditMessage(forms.Form):
 #         fields = '__all__'
 
 
-class AddComment(forms.Form):
+class AddCommentForm(forms.Form):
     # comment_picture = models.ImageField(upload_to='images/')
     comment = forms.CharField(widget = forms.Textarea)
 
-class EditComment(forms.Form):
+class EditCommentForm(forms.Form):
     # comment_picture = models.ImageField(upload_to='images/')
     comment = forms.CharField(widget = forms.Textarea)
