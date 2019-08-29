@@ -12,11 +12,9 @@
 <body class="container-fluid">
     <h1>Login and Registration</h1>
     <div class=flash">
-        {% if messages %}                            <!-- check if there are any messages -->
-            {% for message in messages %}            <!-- loop through the messages -->
-                <h6>{{message | safe}}</h6>                   <!-- display each message in a paragraph tag -->
-            {% endfor %}
-        {% endif %}
+        {% csrf_token %}
+        {{ RegisterUser.as_p }}
+        <!-- {{ LoginUser.as_p }}
     </div>
     <div class='row'>
         <div class='left col'>
@@ -68,4 +66,4 @@
     </div>
 </body>
 </body>
-</html>
+</html> -->

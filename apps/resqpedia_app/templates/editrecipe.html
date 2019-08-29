@@ -12,20 +12,20 @@
     <div id="wrapper">
         <header>
             <h2 class="add_recipe">
-                Add a recipe
+                Edit Recipe
             </h2>
             <a href="/myaccount/{{user_info.id}}" class="edit_my_account">Edit My Account</a>
             <a href="/logout" class="logout">Logout</a>
         </header>
         <main>
-                {% if messages %}
-                    {% for message in messages %}
-                        <p>{{message | safe}}</p>
-                    {% endfor %}
-                {% endif %}
-            <form class="form" action ="/resqpedia/addrecipe" method="POST">
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{message | safe}}</p>
+                {% endfor %}
+            {% endif %}
+            <form class="form" action ="/resqpedia/editrecipe" method="POST">
             {% csrf_token %}
-            {{ AddRecipe.as_p }}
+            {{ EditRecipe.as_p }}
                 <div id="left">
                     <div class="upload">
                         <img class="img" src="{% static 'img/upload_photo.png' %}" alt="upload_photo">
@@ -34,44 +34,44 @@
                     </div>
                     <div class="prep">
                         <p class="input_name_left" for="prep_time">Prep Time: </p>
-                        <input class="number_input" type="number" name="prep_time" style="text-align: center" placeholder="enter time in minutes">
+                        <input class="number_input" type="number" name="prep_time" style="text-align: center" value="5">
                     </div>
                     <div class="cook">
                         <p class="input_name_left" for="cook_time">Cook Time: </p>
-                        <input class="number_input" type="number" name="cook_time" placeholder="enter time in minutes">
+                        <input class="number_input" type="number" name="cook_time" value="45">
                     </div>
                     <div class="servings">
                         <p class="input_name_left" for="number_of_servings">Number of Servings: </p>
-                        <input class="number_input" type="number" name="number_of_servings" placeholder="enter time in minutes">
+                        <input class="number_input" type="number" name="number_of_servings" value="6">
                     </div>
                 </div>
                 <div id="right">
                     <div class="title">
                         <label class="input_name_right" for="title">Title</label>
-                        <input class="title_input" type="text" name="title" placeholder="Required"></input>
+                        <input class="title_input" type="text" name="title" value="Dish Name"></input>
                     </div>
                     <div class="description">
                         <label class="input_name_right" for="description">Description </label>
-                        <textarea name="description" placeholder="Must be more than 50 characters" rows="3"></textarea>
+                        <textarea name="description" rows="3">Description to edit</textarea>
                     </div>
                     <div class="ingredients">
                         <label class="input_name_right" for="ingredients">Ingredients </label>
                         <ul>
-                            <li><input type="text" placeholder="ingredient 1"></li>
-                            <li><input type="text" placeholder="ingredient 2"></li>
-                            <li><input type="text" placeholder="ingredient 3"></li>
-                            <li><input type="text" placeholder="ingredient 4"></li>
-                            <li><input type="text" placeholder="ingredient 5"></li>
+                            <li><input type="text" value="ingredient to edit"></li>
+                            <li><input type="text" value="ingredient to edit"></li>
+                            <li><input type="text" value="ingredient to edit"></li>
+                            <li><input type="text" value="ingredient to edit"></li>
+                            <li><input type="text" value="ingredient to edit"></li>
                         </ul>
                     </div>
                     <div class="directions">
                         <label class="input_name_right" for="directions">Directions </label>
-                        <textarea name="directions" placeholder="Directions required" rows="3"></textarea>
+                        <textarea name="directions" rows="3">Directions to edit</textarea>
                     </div>
                 </div>
                 <input type="hidden" name="uploaded_by" value="{{user_info.id}}">
                 <input type="hidden" name="users_who_like" value="{{user_info.id}}">
-                <input class="submit" type="submit" value="Submit">
+                <input class="submit" type="submit" value="Update">
             </form>
         </main>
     </div>

@@ -1,4 +1,4 @@
-*{
+/* *{
     outline: 0;
     padding: 0;
     margin: 0;
@@ -14,4 +14,104 @@
 
 .white{
     color: white;
+} */
+
+*{
+    /* outline: 0; */
+    /* padding: 0; */
+    /* border: 0; */
+    margin: 0 auto;
+    box-sizing: border-box;
+    /* outline: 1px solid red; */
+}
+
+/* .ohno{
+    color: red;
+    font-size: 13px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.white{
+    color: white;
+} */
+
+#wrapper{
+    width: 1000px;
+    font-size: larger;
+}
+
+/* Add a Recipe CSS */
+header{
+    vertical-align: middle
+}
+h2.add_recipe, a.edit_my_account, a.logout{
+    display: inline-block;
+    margin-left: 1%;
+}
+h2.add_recipe{
+    width: 77.05%;
+}
+a.edit_my_account, a.logout{
+    height: 100%;
+}
+form.form{
+    margin-top: 2%;
+}
+div#left, div#right{
+    display: inline-block;
+    width: 47.5%;
+    margin: 1%;
+    vertical-align: top;
+}
+img.img{
+    width: 250px;
+    display: block
+}
+div.upload{
+    text-align: center;
+}
+input.upload_input{
+    margin: 1%
+}
+
+p.input_name_left{
+    width: 100%;
+}
+label.input_name_right{
+    display: block;
+    margin: 1% 0%;
+}
+div.prep, div.cook, div.servings{
+    display: inline-block;
+    width: 46.5%;
+    margin: 1%;
+}
+textarea{
+    resize: none;
+    width: 100%;
+    font-size: medium;
+}
+input.submit{
+    display: block;
+    text-align: center;
+    font-size: larger;
+}
+input.number_input{
+    height: 35px;
+    text-align: center;
+    font-size: large;
+}
+input.title_input{
+    font-size: medium;
+    width: 100%;
+}
+
+/* User Homepage CSS */
+h2.welcome{
+    display: inline-block;
+    margin-left: 1%;
+    width: 76.65%;
+}
+h4.recipe_header, h3.recipe_info{
+    margin: 1%;
 }
