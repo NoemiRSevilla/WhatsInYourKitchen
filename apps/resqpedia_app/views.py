@@ -5,7 +5,7 @@ from django.contrib import messages
 import bcrypt
 from datetime import datetime
 
-from .forms import RegisterUser, EditUser, AddRecipe, EditRecipe, AddMessage, EditMessage, AddComment, EditComment
+from .forms import RegisterUserForm, EditUserForm, AddRecipeForm, EditRecipeForm, AddMessageForm, EditMessageForm, AddCommentForm, EditCommentForm
 
 
 def index(request):
@@ -13,26 +13,28 @@ def index(request):
         return redirect("/resqpedia")
     else:
         context = {
-            "RegisterUser": RegisterUser()
+            "RegisterUserForm": RegisterUserForm()
         }
         return render(request, "index.html", context)
 
 
 def register(request):
     if request.method == "POST":
-        bound_form = RegisterUser(request.POST)
+        bound_form = RegisterUserForm(request.POST)
         # Now test that bound_form using built-in methods!
         # *************************
         # True or False, based on the validations that were set!
         print(bound_form.is_valid())
         print(bound_form.errors)
-        hash = bcrypt.hashpw(
-            request.POST['password'].encode(), bcrypt.gensalt())
-        User.objects.create(first_name=request.POST['first_name'], last_name=request.POST['last_name'],
-                            email=request.POST['email'], birthdate=datetime.strptime(request.POST['birthdate'], '%Y-%m-%d'), password=hash)
-        request.session['username'] = request.POST['email']
-        return redirect("/resqpedia")
-
+        if bound_form.is_valid():
+            hash = bcrypt.hashpw(
+                request.POST['password'].encode(), bcrypt.gensalt())
+            User.objects.create(first_name=request.POST['first_name'], last_name=request.POST['last_name'],
+                                email=request.POST['email'], birthdate=datetime.strptime(request.POST['birthdate'], '%Y-%m-%d'), password=hash)
+            request.session['username'] = request.POST['email']
+            return redirect("/resqpedia")
+        else:
+            return redirect("/resqpedia")
 
 def checklogin(request):
     errors = {}
@@ -43,7 +45,7 @@ def checklogin(request):
 
 
 def login(request):
-    bound_form = LoginUser(request.POST)
+    bound_form = LoginUserForm(request.POST)
     request.session['username'] = request.POST['email']
     return redirect("/resqpedia")
 
@@ -77,7 +79,7 @@ def edit_user(request):
         }
         return render("edituser.html")
     if request.method == 'POST':
-        bound_form = EditUser(request.POST)
+        bound_form = EditUserForm(request.POST)
         # Now test that bound_form using built-in methods!
         # *************************
         # True or False, based on the validations that were set!
